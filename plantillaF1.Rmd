@@ -37,7 +37,7 @@ url <- "https://raw.githubusercontent.com/jamadom07683/ModelosEstadisticas_Fase1
 
 ```
 
-#### Se lee el archivo desde la ubicación asignado la varialble **url**
+#### Se lee el archivo desde la ubicación asignado la variable **url**
 
 ```{r echo=FALSE}
 # Carguen el conjunto de datos. Oculten esten bloque de código.
@@ -412,22 +412,36 @@ print(tabla_ordenada_por_contribuciones)
     Crear una variable indicadora (pueden denominarla **TGivingIND**) que clasifique los exalumnos en contribuyentes (1) y no contribuyentes (0). Utilizando esta variable elaboren un mosaico para visualizar la proporción de contribuyentes por cohorte y otro para visualizar la proporción según la asistencia a eventos. Interpreten lo que observan en estos gráficos.
     :::
 
-```{r}
+```{r echo=FALSE}
 # Crear la variable indicadora.
+# Calcular el total de contribuciones por estudiante sumando las columnas de contribuciones
+df$TGiving <- rowSums(df[, c("FY04Giving", "FY03Giving", "FY02Giving", "FY01Giving", "FY00Giving")], na.rm = TRUE)
 
+# Crear la variable indicadora TGivingIND: 1 para contribuyentes, 0 para no contribuyentes
+df$TGivingIND <- ifelse(df$TGiving > 0, 1, 0)
+
+# Cargar librerías necesarias
+# install.packages("vcd") # Instalar vcd si no está instalado
+library(vcd)
 
 ```
 
-```{r}
-# Mosaico patra la proporción de contribuyentes por cohorte.
-
-
+```{r echo=FALSE}
+# Mosaico para visualizar la proporción de contribuyentes por cohorte (año de clase)
+mosaic(~ Class.Year + TGivingIND, data = df, shade = TRUE, 
+       legend = TRUE, 
+       main = "Proporción de Contribuyentes por Cohorte",
+       xlab = "Cohorte (Año de Clase)", 
+       ylab = "Contribuyentes (1) y No Contribuyentes (0)")
 ```
 
-```{r}
-# Mosaico para la proporción de contribuyentes según asistencia a eventos.
-
-
+```{r echo=FALSE}
+# Mosaico para visualizar la proporción de contribuyentes según la asistencia a eventos
+mosaic(~ AttendenceEvent + TGivingIND, data = df, shade = TRUE, 
+       legend = TRUE, 
+       main = " Proporción de Contribuyentes Según Asistencia a Eventos ",
+       xlab = "Asistencia a Eventos (1 = Asistió, 0 = No Asistió)", 
+       ylab = "Contribuyentes (1) y No Contribuyentes (0)")
 ```
 
 **Interpretación:**
