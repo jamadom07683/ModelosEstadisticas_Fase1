@@ -324,59 +324,43 @@ print(count_next_degree)
     Elaborar diagramas de caja que permita comparar la donación total (variable **TGiving**) durante los 5 años discriminando por cohorte, género, estado civil y asistencia a eventos de recaudación de fondos. Con la opción **outline** omitan las observaciones periféricas (datos atípicos, es decir, aquellos donantes que contribuyen generosamente). Comparen los cuatro gráficos, destaquen diferencias y similitudes entre grupos.
     :::
 
-```{r}
-#install.packages("ggplot2")
-library(ggplot2)
-# Diagrama de caja para la variable contribuciones totales por chorte.
-# Sugerencia: Ir a https://r-coder.com/boxplot-r/ para ver modificaciones del gráfico.
-
-# Crear diagramas de caja discriminando por cohorte, género, estado civil y asistencia a eventos
-p1 <- ggplot(don1, aes(x = as.factor(Class.Year), y = Tgiving)) + 
-  geom_boxplot(outlier.shape = NA) + 
-  labs(title = "Donación Total por Cohorte", x = "Cohorte", y = "Donación Total") +
-  theme_minimal()
-
-p2 <- ggplot(don1, aes(x = Gender, y = Tgiving)) + 
-  geom_boxplot(outlier.shape = NA) + 
-  labs(title = "Donación Total por Género", x = "Gender", y = "Donación Total") +
-  theme_minimal()
-
-p3 <- ggplot(don1, aes(x = Marital.Status, y = Tgiving)) + 
-  geom_boxplot(outlier.shape = NA) + 
-  labs(title = "Donación Total por Estado Civil", x = "Estado Civil", y = "Donación Total") +
-  theme_minimal()
-
-p4 <- ggplot(don1, aes(x = as.factor(AttendenceEvent), y = Tgiving)) + 
-  geom_boxplot(outlier.shape = NA) + 
-  labs(title = "Donación Total por Asistencia a Eventos", x = "Asistencia a Eventos", y = "Donación Total") +
-  theme_minimal()
-
-# Mostrar los gráficos
-print(p1)
-print(p2)
-print(p3)
-print(p4)
-
-
-```
-
-```{r}
-# Diagrama de caja para la variable contribuciones totales por género.
-# Sugerencia: Ir a https://r-charts.com/es/r-base/ejes/ para ver cambio en las etiquetas de los ejes.
-
-
-```
-
-```{r}
+```{r echo=FALSE}
+#Cargar los datos
+datos <- read.csv(url)
+# Calcular la donación total sumando las columnas de los cinco años
+datos$TGiving <- rowSums(datos[, c("FY04Giving", "FY03Giving", "FY02Giving", "FY01Giving", "FY00Giving")], na.rm = TRUE)
+# Diagrama de caja para la variable contribuciones totales por cohorte
+boxplot(datos$TGiving ~ datos$Class.Year,
+        main = "Donaciones por Cohorte",
+        xlab = "Cohorte",
+        ylab = "Donaciones Totales",
+        outline = FALSE,  # Omitir observaciones periféricas
+        col = "lightblue",
+        border = "darkblue")
+# Diagrama de caja para la variable contribuciones totales por género
+boxplot(datos$TGiving ~ datos$Gender,
+        main = "Donaciones por Género",
+        xlab = "Género",
+        ylab = "Donaciones Totales",
+        outline = FALSE,
+        col = "lightblue",
+        border = "darkblue")
 # Diagrama de caja para la variable contribuciones totales por estado civil
-
-
-```
-
-```{r}
-# Diagrama de caja para la variable contribuciones totales por asisitencia a eventos de recaudación de fondos.
-
-
+boxplot(datos$TGiving ~ datos$Marital.Status,
+        main = "Donaciones por Estado Marital",
+        xlab = "Estado Marital",
+        ylab = "Donaciones Totales",
+        outline = FALSE,
+        col = "lightblue",
+        border = "darkblue")
+# Diagrama de caja para la variable contribuciones totales por asistencia a eventos de recaudación de fondos
+boxplot(datos$TGiving ~ datos$AttendenceEvent,
+        main = "Donaciones por Asistencia a Eventos",
+        xlab = "Asistencia",
+        ylab = "Donaciones Totales",
+        outline = FALSE,
+        col = "lightblue",
+        border = "darkblue")
 ```
 
 **Interpretación:**
