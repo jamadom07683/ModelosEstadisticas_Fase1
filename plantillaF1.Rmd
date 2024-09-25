@@ -330,11 +330,12 @@ datos <- read.csv(url)
 # Calcular la donación total sumando las columnas de los cinco años
 datos$TGiving <- rowSums(datos[, c("FY04Giving", "FY03Giving", "FY02Giving", "FY01Giving", "FY00Giving")], na.rm = TRUE)
 # Diagrama de caja para la variable contribuciones totales por cohorte
+# Diagrama de caja para la variable contribuciones totales por cohorte
 boxplot(datos$TGiving ~ datos$Class.Year,
         main = "Donaciones por Cohorte",
         xlab = "Cohorte",
         ylab = "Donaciones Totales",
-        outline = FALSE,  # Omitir observaciones periféricas
+        outline = FALSE,  # Omitir observaciones periféricas pero incluir todos los datos
         col = "lightblue",
         border = "darkblue")
 # Diagrama de caja para la variable contribuciones totales por género
