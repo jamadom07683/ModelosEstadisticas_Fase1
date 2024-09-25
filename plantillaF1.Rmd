@@ -1,7 +1,7 @@
 ---
 title: "Caso: Donaciones de exalumnos"
 author: 
- - Autor2,Santiago Amado,Yodid Cardenas\n
+ - David,Santiago Amado,Yodid Cardenas\n
  
  - Maestria en ciencia de datos.\n
  
@@ -330,7 +330,6 @@ datos <- read.csv(url)
 # Calcular la donación total sumando las columnas de los cinco años
 datos$TGiving <- rowSums(datos[, c("FY04Giving", "FY03Giving", "FY02Giving", "FY01Giving", "FY00Giving")], na.rm = TRUE)
 # Diagrama de caja para la variable contribuciones totales por cohorte
-# Diagrama de caja para la variable contribuciones totales por cohorte
 boxplot(datos$TGiving ~ datos$Class.Year,
         main = "Donaciones por Cohorte",
         xlab = "Cohorte",
@@ -370,10 +369,41 @@ boxplot(datos$TGiving ~ datos$AttendenceEvent,
     Construir una tabla que de cuenta del número de estudiantes y el promedio del total de contribuciones (variable **TGiving**) por carrera universitaria. ¿Cuáles son las carreras que tienen un mayor número de exalumnos en la base de datos? ¿cuáles son las que tienen una contribución total promedio más alta? Para calcular promedio por grupos pueden utilizar la función **tapply()**.
     :::
 
-```{r}
+```{r echo=FALSE}
 # Sugerencia: Ir a https://r-coder.com/tapply-r/ para ver cálculo de medidas por grupos.
+# Cargar los datos desde la URL
+url <- "https://raw.githubusercontent.com/jamadom07683/ModelosEstadisticas_Fase1/refs/heads/main/Datos/contribution.csv"
+df <- read.csv(url)
 
+# Calcular el total de contribuciones por estudiante sumando las columnas de contribuciones
+df$TGiving <- rowSums(df[, c("FY04Giving", "FY03Giving", "FY02Giving", "FY01Giving", "FY00Giving")], na.rm = TRUE)
 
+# Crear la tabla con el número de estudiantes por carrera usando table()
+num_estudiantes <- table(df$Major)
+
+# Calcular el promedio de contribuciones por carrera usando tapply()
+promedio_contribuciones <- tapply(df$TGiving, df$Major, mean, na.rm = TRUE)
+
+# Crear una tabla combinada con el número de estudiantes y el promedio de contribuciones por carrera
+tabla_resultado <- data.frame(
+  Carrera = names(num_estudiantes),
+  Numero_Estudiantes = as.vector(num_estudiantes),
+  Promedio_Contribuciones = as.vector(promedio_contribuciones)
+)
+
+# Ordenar la tabla por el número de estudiantes en orden descendente
+tabla_ordenada <- tabla_resultado[order(-tabla_resultado$Numero_Estudiantes),]
+
+# Mostrar la tabla ordenada por el número de estudiantes
+print("Número de Estudiantes por Carrera y Promedio de Contribuciones")
+print(tabla_ordenada)
+
+# Ordenar la tabla por el promedio de contribuciones en orden descendente
+tabla_ordenada_por_contribuciones <- tabla_resultado[order(-tabla_resultado$Promedio_Contribuciones),]
+
+# Mostrar la tabla ordenada por el promedio de contribuciones
+print("Carreras con la Contribución Total Promedio más Alta")
+print(tabla_ordenada_por_contribuciones)
 ```
 
 **Interpretación:**

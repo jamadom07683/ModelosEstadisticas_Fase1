@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Autor2,Santiago Amado,Yodid Cardenas" />
+<meta name="author" content="David,Santiago Amado,Yodid Cardenas" />
 <meta name="author" content="Maestria en ciencia de datos." />
 <meta name="author" content="Modelos estadísticos aplicados." />
 
@@ -1558,7 +1558,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Caso: Donaciones de exalumnos</h1>
-<h4 class="author">Autor2,Santiago Amado,Yodid Cardenas</h4>
+<h4 class="author">David,Santiago Amado,Yodid Cardenas</h4>
 <h4 class="author">Maestria en ciencia de datos.</h4>
 <h4 class="author">Modelos estadísticos aplicados.</h4>
 
@@ -1946,7 +1946,102 @@ contribución total promedio más alta? Para calcular promedio por grupos
 pueden utilizar la función <strong>tapply()</strong>.</p>
 </div></li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Sugerencia: Ir a https://r-coder.com/tapply-r/ para ver cálculo de medidas por grupos.</span></span></code></pre></div>
+<pre><code>## [1] &quot;Número de Estudiantes por Carrera y Promedio de Contribuciones&quot;</code></pre>
+<pre><code>##                      Carrera Numero_Estudiantes Promedio_Contribuciones
+## 26                   History                135               1782.3447
+## 16                   English                123                397.1862
+## 4                    Biology                115                551.0024
+## 11                 Economics                 87               1166.9149
+## 36         Political Science                 81                719.0517
+## 37                Psychology                 79                554.5177
+## 5                  Chemistry                 63                421.8368
+## 40                 Sociology                 57                626.9218
+## 2               Anthropology                 44                164.2500
+## 28               Mathematics                 44                501.2500
+## 3                        Art                 39                164.0769
+## 30                     Music                 30               1221.9000
+## 1           American Studies                 29                451.2845
+## 42                   Spanish                 27                211.4815
+## 12        Economics-Business                 24               4334.6617
+## 18                    French                 23                267.0870
+## 38         Religious Studies                 23                139.5652
+## 31                Philosophy                 22                203.3636
+## 27               Independent                 21                347.6190
+## 34                   Physics                 21               1842.1429
+## 45                   Theatre                 21                229.4762
+## 25                    German                 13                259.4615
+## 39                   Russian                 13                380.0000
+## 41    Sociology-Anthropology                 12                344.5000
+## 8                   Classics                  9                767.0000
+## 32       Philosophy-Religion                  9                244.5556
+## 20   General Science-Biology                  8                210.5000
+## 43      Speech (Drama, etc.)                  7              10699.3300
+## 14                 Education                  6                473.6667
+## 21 General Science-Chemistry                  5                199.2000
+## 33        Physical Education                  5               1886.0000
+## 10          Computer Science                  4                737.0000
+## 19           General Science                  4                608.7500
+## 44         Speech Correction                  4                 56.2500
+## 6          Chemistry-Zoology                  3              11083.3333
+## 23   General Science-Physics                  3                  0.0000
+## 29       Mathematics-Physics                  3              57570.0200
+## 7                    Chinese                  2                132.5000
+## 9     Comparative Literature                  2                  0.0000
+## 13  Economics-Regional Stds.                  2                350.0000
+## 24    General Science-Psycho                  2                477.0000
+## 46                   Zoology                  2                 27.5000
+## 15               Engineering                  1                100.0000
+## 17        English-Journalism                  1               1897.4400
+## 22      General Science-Math                  1                  0.0000
+## 35  Pol. Sci.-Regional Stds.                  1                  0.0000</code></pre>
+<pre><code>## [1] &quot;Carreras con la Contribución Total Promedio más Alta&quot;</code></pre>
+<pre><code>##                      Carrera Numero_Estudiantes Promedio_Contribuciones
+## 29       Mathematics-Physics                  3              57570.0200
+## 6          Chemistry-Zoology                  3              11083.3333
+## 43      Speech (Drama, etc.)                  7              10699.3300
+## 12        Economics-Business                 24               4334.6617
+## 17        English-Journalism                  1               1897.4400
+## 33        Physical Education                  5               1886.0000
+## 34                   Physics                 21               1842.1429
+## 26                   History                135               1782.3447
+## 30                     Music                 30               1221.9000
+## 11                 Economics                 87               1166.9149
+## 8                   Classics                  9                767.0000
+## 10          Computer Science                  4                737.0000
+## 36         Political Science                 81                719.0517
+## 40                 Sociology                 57                626.9218
+## 19           General Science                  4                608.7500
+## 37                Psychology                 79                554.5177
+## 4                    Biology                115                551.0024
+## 28               Mathematics                 44                501.2500
+## 24    General Science-Psycho                  2                477.0000
+## 14                 Education                  6                473.6667
+## 1           American Studies                 29                451.2845
+## 5                  Chemistry                 63                421.8368
+## 16                   English                123                397.1862
+## 39                   Russian                 13                380.0000
+## 13  Economics-Regional Stds.                  2                350.0000
+## 27               Independent                 21                347.6190
+## 41    Sociology-Anthropology                 12                344.5000
+## 18                    French                 23                267.0870
+## 25                    German                 13                259.4615
+## 32       Philosophy-Religion                  9                244.5556
+## 45                   Theatre                 21                229.4762
+## 42                   Spanish                 27                211.4815
+## 20   General Science-Biology                  8                210.5000
+## 31                Philosophy                 22                203.3636
+## 21 General Science-Chemistry                  5                199.2000
+## 2               Anthropology                 44                164.2500
+## 3                        Art                 39                164.0769
+## 38         Religious Studies                 23                139.5652
+## 7                    Chinese                  2                132.5000
+## 15               Engineering                  1                100.0000
+## 44         Speech Correction                  4                 56.2500
+## 46                   Zoology                  2                 27.5000
+## 9     Comparative Literature                  2                  0.0000
+## 22      General Science-Math                  1                  0.0000
+## 23   General Science-Physics                  3                  0.0000
+## 35  Pol. Sci.-Regional Stds.                  1                  0.0000</code></pre>
 <p><strong>Interpretación:</strong></p>
 <ul>
 <li><div style="text-align: justify">
@@ -1958,9 +2053,9 @@ cohorte y otro para visualizar la proporción según la asistencia a
 eventos. Interpreten lo que observan en estos gráficos.</p>
 </div></li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># Crear la variable indicadora.</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Mosaico patra la proporción de contribuyentes por cohorte.</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Mosaico para la proporción de contribuyentes según asistencia a eventos.</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># Crear la variable indicadora.</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co"># Mosaico patra la proporción de contribuyentes por cohorte.</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># Mosaico para la proporción de contribuyentes según asistencia a eventos.</span></span></code></pre></div>
 <p><strong>Interpretación:</strong></p>
 </div>
 <div id="discusión." class="section level1" number="5">
