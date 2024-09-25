@@ -1,7 +1,7 @@
 ---
 title: "Caso: Donaciones de exalumnos"
 author: 
- - Autor2,Autor3,Yodid Cardenas\n
+ - Autor2,Santiago Amado,Yodid Cardenas\n
  
  - Maestria en ciencia de datos.\n
  
@@ -30,8 +30,8 @@ library(tidyr)
 
 # Definan el directorio de trabajo. Oculten este bloque de código.
 
-# URL del archivo en GitHub
-url <- "https://raw.githubusercontent.com/yodidj/R_2024/refs/heads/main/contribution.csv"
+# URL actualizada del archivo en GitHub
+url <- "https://raw.githubusercontent.com/jamadom07683/ModelosEstadisticas_Fase1/refs/heads/main/Datos/contribution.csv"
 
 
 
