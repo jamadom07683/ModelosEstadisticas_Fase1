@@ -1,0 +1,420 @@
+---
+title: "Caso: Donaciones de exalumnos"
+author: 
+ - Autor2,Autor3,Yodid Cardenas\n
+ 
+ - Maestria en ciencia de datos.\n
+ 
+ - Modelos estadísticos aplicados.\n
+date: ""
+output:
+  html_document:
+    highlight: tango
+    number_sections: yes
+    theme: united
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+  word_document:
+    toc: yes
+---
+
+```{r echo=FALSE}
+
+# Instalar y cargar el paquete tidyr si no lo tienes
+# install.packages("tidyr")
+library(tidyr)
+
+# Definan el directorio de trabajo. Oculten este bloque de código.
+
+# URL del archivo en GitHub
+url <- "https://raw.githubusercontent.com/yodidj/R_2024/refs/heads/main/contribution.csv"
+
+
+
+```
+
+#### Se lee el archivo desde la ubicación asignado la varialble **url**
+
+```{r echo=FALSE}
+# Carguen el conjunto de datos. Oculten esten bloque de código.
+
+
+# Leer el archivo CSV desde la URL
+contribution <- read.csv(url)
+
+
+```
+
+#### Primeros 5 registros del archivo **contribution**
+
+```{r echo=FALSE}
+# Mostrar los primeros 5 registros del archivo
+head(contribution, n = 5)
+
+```
+
+# Contextualización.
+
+Se realizará un analisis detallado de información de archivo **Contribution** con el fin sacar valores estadisticos con graficas donde no muestre diferentes analisis de acuerdo a la necesidad.
+
+# Variables de estudio.
+
+El conjunto de datos incluye 11 variables. Las cuales se describen a continuación:
+
+```{r echo=FALSE}
+# Con la función srt() se puede visualizar la estructura de la base de datos 
+str(contribution)
+
+# Con la función names() los nombres de las variables. 
+
+names(contribution)
+# Una vez hayan explorado estas dos funciones, oculten este bloque de código.
+
+
+```
+
+| Variable              | Código          | Descripción                       | Escala | Naturaleza |
+|---------------|---------------|---------------|---------------|---------------|
+| Género                | Gender          | Género del exalumno               |        |            |
+| Cohorte               | Class Year      | Año de ingreso                    |        |            |
+| Estado civil          | Marital Status  | Estado civil del exalumno         |        |            |
+| Carrera universitaria | Major           | Área del conocimiento             |        |            |
+| Grados posteriores    | Next Degree     | Estudios superiores               |        |            |
+| Donación 2004         | FY04Giving      | Donación en el año 2004 (dólares) |        |            |
+| Donación 2003         | FY03Giving      | Donación en el año 2003 (dólares) |        |            |
+| Donación 2002         | FY02Giving      | Donación en el año 2002 (dólares) |        |            |
+| Donación 2001         | FY01Giving      | Donación en el año 2001 (dólares) |        |            |
+| Donación 2000         | FY00Giving      | Donación en el año 2000 (dólares) |        |            |
+| Asistencia            | AttendenceEvent | Eventos de recaudación de fondos  |        |            |
+
+Todas la variables juegan un papel importante para preveer el éxito de futuras campañas de recaudación de fondos.
+
+# Análisis exploratorio.
+
+-   ::: {style="text-align: justify"}
+    Código para visualizar los cinco primeros registros de la base de datos.
+    :::
+
+```{r echo=FALSE}
+# Mostrar los primeros 5 registros del archivo
+head(contribution, n = 5)
+
+```
+
+-   ::: {style="text-align: justify"}
+    Se identifica y elimina datos faltantes de la base. Consolidando en una base de datos que no contenga valores perdidos. Se muestra cantidad NA para cada una de las columnas
+    :::
+
+```{r echo=FALSE}
+# Número de datos faltantes (NA).
+
+# Contar el número total de valores NA
+num_na <- sum(is.na(contribution))
+
+print(num_na)
+
+# Contar los valores NA por columna
+na_por_columna <- colSums(is.na(contribution))
+
+print(na_por_columna)
+
+```
+
+```{r echo=FALSE}
+# Eliminar filas con datos faltantes.
+
+contribution_sin_na <- drop_na(contribution)
+
+# Asignar un nombre (por ejemplo, don1) al conjunto de datos que no tiene datos perdidos.
+
+don1 <- na.omit(contribution)
+
+# Utilizar la base don1 para los análisis que siguen.
+
+
+```
+
+```{r echo=FALSE}
+# Usar la función dim() para identificar la dimensión de la nueva base de datos.
+
+dim_don1 <- dim(don1)
+
+print(dim_don1)
+```
+
+-   ::: {style="text-align: justify"}
+    Coerción de variables en la cual se usa al función **as.factor**,es una forma de coerción explícita, donde forzamos la conversión de un tipo de dato a otro. Esto es útil cuando necesitas trabajar con datos categóricos en análisis estadísticos o visualizaciones.
+    :::
+
+```{r echo=FALSE}
+# Coerción de variables 
+
+# Convertir las columnas de carácter a factor
+# Convertir las columnas de carácter a factor
+don1$Gender <- as.factor(don1$Gender)
+don1$Marital.Status <- as.factor(don1$Marital.Status)
+don1$Major <- as.factor(don1$Major)
+don1$Next.Degree <- as.factor(don1$Next.Degree)
+
+# Verificar la estructura del data frame
+str(don1)
+
+```
+
+# Análisis descriptivo.
+
+-   ::: {style="text-align: justify"}
+    En la siguiente grafica de barras se puede visualizar cuántos exalumnos se tienen por cohorte.
+    :::
+
+```{r echo=FALSE}
+# Tabla o gráfico del número de exalumnos por cohorte 
+
+# Crear un gráfico de barras para Class.Year
+table_class_year <- table(don1$Class.Year)
+
+barplot(table_class_year, 
+        main = "Número de Exalumnos por Año de Clase", 
+        xlab = "Año de Clase", 
+        ylab = "Número de Exalumnos", 
+        col = "skyblue")
+
+```
+
+**Interpretación**:
+
+-   ::: {style="text-align: justify"}
+    Se crea una nueva variable con el nombre **Tgiving**.
+
+    Esta variable corresponde al total de las contribuciones de cada graduado.
+
+    Se calculan los estadísticos descriptivos como media, mediana, desviación, coeficiente de variación, mínimo y máximo d ela variable creada. Se usa la funcíon **round()** para aproximar a 2 decimales, **data.frame()** y **cbind()**.
+    :::
+
+```{r echo=FALSE}
+# Crear variable TGiving. Ocultar este bloque de código.
+
+# Crear la nueva variable Tgiving
+don1$Tgiving <- don1$FY04Giving + don1$FY03Giving + don1$FY02Giving + don1$FY01Giving + don1$FY00Giving
+
+# Calcular los estadísticos descriptivos
+media <- mean(don1$Tgiving)
+mediana <- median(don1$Tgiving)
+desviacion <- sd(don1$Tgiving)
+coef_var <- (desviacion / media) * 100
+minimo <- min(don1$Tgiving)
+maximo <- max(don1$Tgiving)
+
+# Redondear los resultados a dos cifras decimales
+media <- round(media, 2)
+mediana <- round(mediana, 2)
+desviacion <- round(desviacion, 2)
+coef_var <- round(coef_var, 2)
+minimo <- round(minimo, 2)
+maximo <- round(maximo, 2)
+
+# Crear un data frame con los resultados
+resultados <- data.frame(
+  Estadístico = c("Media", "Mediana", "Desviación estándar", "Coeficiente de variación (%)", "Mínimo", "Máximo"),
+  Valor = c(media, mediana, desviacion, coef_var, minimo, maximo)
+)
+
+# Presentar los resultados en una tabla
+knitr::kable(resultados, caption = "Estadísticos descriptivos de Tgiving")
+
+
+```
+
+```{r echo=FALSE}
+# Estadísticos descriptivos de la variable TGiving. Solo se debe visualizar la tabla con los resultados en el html. Ocultar el este bloque de código
+
+
+```
+
+**Interpretación:**
+
+-   ::: {style="text-align: justify"}
+    Determinar los deciles correspondientes a las observaciones de la variable contribuciones totales (variable **TGiving**) e interpreten los resultados que obtienen.
+    :::
+
+```{r echo=FALSE}
+# Calcular los deciles de la variable Tgiving
+deciles <- quantile(don1$Tgiving, probs = seq(0.1, 0.9, by = 0.1))
+
+# Mostrar los deciles
+deciles
+
+
+```
+
+**Interpretación:**
+
+-   ::: {style="text-align: justify"}
+    Tener en cuenta que hay un número considerable de exalumnos que no han contribuido y unos pocos que han realizado aportes muy altos. Por ello, es pertinente excluir del análisis contribuciones totales que sean \$0 o superiores a \$4000. Esto permite focalizar el análisis en las donaciones más frecuentes de los exalumnos. Construyan un histograma junto con la función de densidad, para visualizar las contribuciones totales (variable **TGiving**) excluyendo los valores descritos. Interpreten los resultados a la luz del contexto.
+    :::
+
+```{r echo=FALSE}
+# Histograma para las constribuciones totales. 
+# Sugerencia: Ir a https://r-coder.com/histograma-r/ para ver modificaciones del gráfico.
+
+
+
+# Filtrar las contribuciones totales excluyendo valores $0 y > $4000
+don1_filtrado <- subset(don1, Tgiving > 0 & Tgiving <= 4000)
+
+# Crear el histograma y la curva de densidad
+hist(don1_filtrado$Tgiving, 
+     prob = TRUE, 
+     main = "Histograma y Curva de Densidad de Contribuciones Totales",
+     xlab = "Contribuciones Totales (Tgiving)", 
+     ylab = "Densidad", 
+     col = "#BFD641", 
+     border = "black")
+
+# Añadir la curva de densidad
+lines(density(don1_filtrado$Tgiving), 
+      col = "#CC6CE7", 
+      lwd = 2)
+
+
+```
+
+**Interpretación:**
+
+-   ::: {style="text-align: justify"}
+    Describir las características de los exalumnos que han realizado las contribuciones más altas durante el 2000 y 2004. Para ello seleccionen los egresados que hicieron una contribución total (variable **TGiving**) de al menos \$20000 durante el periodo de interés.
+    :::
+
+```{r echo=FALSE}
+# Crear la nueva variable Tgiving
+don1$Tgiving <- don1$FY04Giving + don1$FY03Giving + don1$FY02Giving + don1$FY01Giving + don1$FY00Giving
+
+# Filtrar los exalumnos que hicieron contribuciones de al menos $20000
+don_high_cont<- don1[don1$Tgiving >= 20000, ]
+
+# Filtrar por los años de interés (2000 a 2004)
+don_high_cont_period <- don_high_cont[don_high_cont$Class.Year >= 1957 & don_high_cont$Class.Year <= 1977, ]
+
+# Mostrar las características de los exalumnos seleccionados
+
+head (don_high_cont_period, n = 5)
+
+# Contar la cantidad de cada valor en las variables
+count_class_year <- sort(table(don_high_cont_period$Class.Year), decreasing = TRUE)
+count_marital_status <- sort(table(don_high_cont_period$Marital.Status), decreasing = TRUE)
+count_major <- sort(table(don_high_cont_period$Major), decreasing = TRUE)
+count_next_degree <- sort(table(don_high_cont_period$Next.Degree), decreasing = TRUE)
+
+# Mostrar los resultados
+print(count_class_year)
+print(count_marital_status)
+print(count_major)
+print(count_next_degree)
+
+
+```
+
+**Interpretación:**
+
+-   ::: {style="text-align: justify"}
+    Elaborar diagramas de caja que permita comparar la donación total (variable **TGiving**) durante los 5 años discriminando por cohorte, género, estado civil y asistencia a eventos de recaudación de fondos. Con la opción **outline** omitan las observaciones periféricas (datos atípicos, es decir, aquellos donantes que contribuyen generosamente). Comparen los cuatro gráficos, destaquen diferencias y similitudes entre grupos.
+    :::
+
+```{r}
+#install.packages("ggplot2")
+library(ggplot2)
+# Diagrama de caja para la variable contribuciones totales por chorte.
+# Sugerencia: Ir a https://r-coder.com/boxplot-r/ para ver modificaciones del gráfico.
+
+# Crear diagramas de caja discriminando por cohorte, género, estado civil y asistencia a eventos
+p1 <- ggplot(don1, aes(x = as.factor(Class.Year), y = Tgiving)) + 
+  geom_boxplot(outlier.shape = NA) + 
+  labs(title = "Donación Total por Cohorte", x = "Cohorte", y = "Donación Total") +
+  theme_minimal()
+
+p2 <- ggplot(don1, aes(x = Gender, y = Tgiving)) + 
+  geom_boxplot(outlier.shape = NA) + 
+  labs(title = "Donación Total por Género", x = "Gender", y = "Donación Total") +
+  theme_minimal()
+
+p3 <- ggplot(don1, aes(x = Marital.Status, y = Tgiving)) + 
+  geom_boxplot(outlier.shape = NA) + 
+  labs(title = "Donación Total por Estado Civil", x = "Estado Civil", y = "Donación Total") +
+  theme_minimal()
+
+p4 <- ggplot(don1, aes(x = as.factor(AttendenceEvent), y = Tgiving)) + 
+  geom_boxplot(outlier.shape = NA) + 
+  labs(title = "Donación Total por Asistencia a Eventos", x = "Asistencia a Eventos", y = "Donación Total") +
+  theme_minimal()
+
+# Mostrar los gráficos
+print(p1)
+print(p2)
+print(p3)
+print(p4)
+
+
+```
+
+```{r}
+# Diagrama de caja para la variable contribuciones totales por género.
+# Sugerencia: Ir a https://r-charts.com/es/r-base/ejes/ para ver cambio en las etiquetas de los ejes.
+
+
+```
+
+```{r}
+# Diagrama de caja para la variable contribuciones totales por estado civil
+
+
+```
+
+```{r}
+# Diagrama de caja para la variable contribuciones totales por asisitencia a eventos de recaudación de fondos.
+
+
+```
+
+**Interpretación:**
+
+-   ::: {style="text-align: justify"}
+    Construir una tabla que de cuenta del número de estudiantes y el promedio del total de contribuciones (variable **TGiving**) por carrera universitaria. ¿Cuáles son las carreras que tienen un mayor número de exalumnos en la base de datos? ¿cuáles son las que tienen una contribución total promedio más alta? Para calcular promedio por grupos pueden utilizar la función **tapply()**.
+    :::
+
+```{r}
+# Sugerencia: Ir a https://r-coder.com/tapply-r/ para ver cálculo de medidas por grupos.
+
+
+```
+
+**Interpretación:**
+
+-   ::: {style="text-align: justify"}
+    Crear una variable indicadora (pueden denominarla **TGivingIND**) que clasifique los exalumnos en contribuyentes (1) y no contribuyentes (0). Utilizando esta variable elaboren un mosaico para visualizar la proporción de contribuyentes por cohorte y otro para visualizar la proporción según la asistencia a eventos. Interpreten lo que observan en estos gráficos.
+    :::
+
+```{r}
+# Crear la variable indicadora.
+
+
+```
+
+```{r}
+# Mosaico patra la proporción de contribuyentes por cohorte.
+
+
+```
+
+```{r}
+# Mosaico para la proporción de contribuyentes según asistencia a eventos.
+
+
+```
+
+**Interpretación:**
+
+# Discusión.
