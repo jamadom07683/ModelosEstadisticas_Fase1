@@ -1,11 +1,11 @@
 ---
-title: "Caso: Donaciones de exalumnos"
+title: "Caso: Donaciones de Exalumnos"
 author: 
- - David,Santiago Amado,Yodid Cardenas\n
- 
- - Maestria en ciencia de datos.\n
- 
- - Modelos estadísticos aplicados.\n
+ - David Moreno, Santiago Amado, Yodid Cardenas
+
+ - Maestría en Ciencia de Datos
+
+ - Modelos Estadísticos Aplicados
 date: ""
 output:
   html_document:
@@ -24,15 +24,14 @@ output:
 
 ```{r echo=FALSE}
 
-# Instalar y cargar el paquete tidyr si no lo tienes
-# install.packages("tidyr")
+# Instalar y cargar los paquetes necesarios
+# install.packages(c("tidyr", "vcd", "ggplot2"))
 library(tidyr)
-
-# Definan el directorio de trabajo. Oculten este bloque de código.
+library(vcd)
+library(ggplot2)
 
 # URL actualizada del archivo en GitHub
 url <- "https://raw.githubusercontent.com/jamadom07683/ModelosEstadisticas_Fase1/refs/heads/main/Datos/contribution.csv"
-
 
 
 ```
@@ -40,13 +39,8 @@ url <- "https://raw.githubusercontent.com/jamadom07683/ModelosEstadisticas_Fase1
 #### Se lee el archivo desde la ubicación asignado la variable **url**
 
 ```{r echo=FALSE}
-# Carguen el conjunto de datos. Oculten esten bloque de código.
-
-
 # Leer el archivo CSV desde la URL
 contribution <- read.csv(url)
-
-
 ```
 
 #### Primeros 5 registros del archivo **contribution**
@@ -447,3 +441,19 @@ mosaic(~ AttendenceEvent + TGivingIND, data = df, shade = TRUE,
 **Interpretación:**
 
 # Discusión.
+
+
+**1. Aspectos a Considerar en la Próxima Campaña de Recaudación de Fondos**
+
+Basados en la evidencia empírica proporcionada por los datos, se identificaron varios patrones que los encargados de la recaudación de fondos deben considerar en futuras campañas. Primero, la asistencia a eventos se muestra como un factor clave para fomentar las donaciones; aquellos exalumnos que asistieron a eventos presentan una mayor probabilidad de contribuir. Por lo tanto, una estrategia efectiva sería aumentar la promoción y el alcance de estos eventos, personalizando las invitaciones y destacando la importancia del impacto de las donaciones en la universidad. Además, es crucial segmentar las campañas por cohorte, ya que ciertas generaciones muestran mayor afinidad hacia la contribución. Personalizar los mensajes para conectar emocionalmente con estas cohortes específicas puede incrementar el compromiso y, por ende, las donaciones.
+
+
+**2. Aspectos No Examinados y Mejoras en la Caracterización de Contribuyentes**
+
+El análisis descriptivo realizado brinda un panorama general de los patrones de donación, pero hay aspectos que no fueron examinados y que podrían fortalecer la toma de decisiones. No se consideraron variables cualitativas relacionadas con la experiencia universitaria, como la participación en clubes o actividades extracurriculares, que podrían influir en la propensión a donar. Tampoco se evaluaron las comunicaciones previas entre los exalumnos y la universidad, como correos o campañas anteriores, para analizar cómo impactaron en la conducta de donación. Mejorar la segmentación de los donantes con base en factores socioeconómicos, como ocupación y nivel de ingresos, podría también proporcionar un enfoque más preciso en la identificación de posibles grandes contribuyentes. Integrar estas dimensiones podría permitir una caracterización más robusta del perfil de los donantes.
+
+
+**3. Recomendaciones de Nuevas Variables para Mejorar el Análisis**
+
+Para identificar exalumnos con mayor potencial de donación, se recomienda incorporar variables adicionales como `Ingreso Anual`, `Industria de Trabajo`, `Participación en Actividades Universitarias`, `Frecuencia de Contacto con la Universidad` y `Motivaciones para Donar`. La inclusión de `Ingreso Anual` y `Industria de Trabajo` permitiría identificar aquellos exalumnos que tienen mayor capacidad económica y que podrían ser abordados con campañas específicas de alto valor. La `Participación en Actividades Universitarias` podría ayudar a entender mejor la conexión emocional con la universidad, mientras que la `Frecuencia de Contacto con la Universidad` ofrecería información valiosa sobre el nivel de compromiso y predisposición a donar. Finalmente, explorar las `Motivaciones para Donar`, como reconocimiento o gratitud, podría guiar las estrategias para personalizar las campañas y maximizar su efectividad.
+
