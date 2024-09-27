@@ -52,12 +52,17 @@ head(contribution, n = 5)
 ```
 
 # Contextualización.
+**Contextualización de datos:**
+Hay 11 variables en el conjunto de datos con 1230 filas que describen algunos
+atributos de personas como género, año de graduación, estado marital, área principal
+de estudio, próximo grado a obtener, y 5 variables adicionales, posiblemente con 
+cantidades en dólares amerícanos, sobre lo que ha donado cada estudiante en  un período de 5 años y por último una variable que dice si hubo presencia de la persona en algún evento.
+De las 11 variables hay 4 de tipo caracter, las otras son de tipo flotante.
 
-Se realizará un analisis detallado de información de archivo **Contribution** con el fin sacar valores estadisticos con graficas donde no muestre diferentes analisis de acuerdo a la necesidad.
+Al parecer al evento de donación asistieron personas que se graduaron en 1957, 1967, 1977, 1987 y 1997.  La personas que más atendieron el llamado fueron los más recientemente graduados, aunque esto pueda tener que ver con la edad y posible muerte de personas pertenecientes a promociones anteriores.
 
 # Variables de estudio.
-
-El conjunto de datos incluye 11 variables. Las cuales se describen a continuación:
+El conjunto de datos incluye 1230 registros con 11 variables. Las cuales se describen a continuación:
 
 ```{r echo=FALSE}
 # Con la función srt() se puede visualizar la estructura de la base de datos 
@@ -180,13 +185,7 @@ barplot(table_class_year,
 ```
 
 **Interpretación**:
-
--   ::: {style="text-align: justify"}
-    Se crea una nueva variable con el nombre **Tgiving**.
-
-    Esta variable corresponde al total de las contribuciones de cada graduado.
-
-    Se calculan los estadísticos descriptivos como media, mediana, desviación, coeficiente de variación, mínimo y máximo d ela variable creada. Se usa la funcíon **round()** para aproximar a 2 decimales, **data.frame()** y **cbind()**.
+Se puede observar que las personas que más han realizado donaciones son las del cohorte del año 2000.  Adicionalmente, el número de exalumnos que han donado ha venido incrementando al pasar el tiempo. No tenemos variables socioeconómicas que nos muestren la riqueza de cada generación pero podría decirse que la gente de los cohortes más recientes es un poco más consiente de la importancia de las donaciones para una institución educativa y es posible que se haga en agradecimiento por las oportunidades que se les han creado por haber sido parte de aquella institución.
     :::
 
 ```{r echo=FALSE}
@@ -223,17 +222,11 @@ knitr::kable(resultados, caption = "Estadísticos descriptivos de Tgiving")
 
 ```
 
-```{r echo=FALSE}
-# Estadísticos descriptivos de la variable TGiving. Solo se debe visualizar la tabla con los resultados en el html. Ocultar el este bloque de código
-
-
-```
-
 **Interpretación:**
 
--   ::: {style="text-align: justify"}
-    Determinar los deciles correspondientes a las observaciones de la variable contribuciones totales (variable **TGiving**) e interpreten los resultados que obtienen.
-    :::
+Hay una gran diferencia entre la media y la mediana en los datos, esto indica que pueden haber unos pocos valores muy altos en las donaciones, casi que considerandolos atípicos comparados con el comportamiento genérico del resto de la población. 
+
+* <div style="text-align: justify"> Determinar los deciles correspondientes a las observaciones de la variable contribuciones totales (variable **TGiving**) e interpreten los resultados que obtienen. </div>
 
 ```{r echo=FALSE}
 # Calcular los deciles de la variable Tgiving
@@ -245,10 +238,10 @@ deciles
 
 ```
 
-**Interpretación:**
+**Interpretation:** 
+Se muestra una gran variabilidad entre el percentil 100 y el percentil 50.  Esto sugiere que hay unas pocas contribuciones muy altas, lo cual concuerda con los datos anteriormente analizados a través de la diferencia entre la media y la mediana.
 
--   ::: {style="text-align: justify"}
-    Tener en cuenta que hay un número considerable de exalumnos que no han contribuido y unos pocos que han realizado aportes muy altos. Por ello, es pertinente excluir del análisis contribuciones totales que sean \$0 o superiores a \$4000. Esto permite focalizar el análisis en las donaciones más frecuentes de los exalumnos. Construyan un histograma junto con la función de densidad, para visualizar las contribuciones totales (variable **TGiving**) excluyendo los valores descritos. Interpreten los resultados a la luz del contexto.
+* <div style="text-align: justify"> Tener en cuenta que hay un número considerable de exalumnos que no han contribuido y unos pocos que han realizado aportes muy altos. Por ello, es pertinente excluir del análisis contribuciones totales que sean \$0 o superiores a \$4000. Esto permite focalizar el análisis en las donaciones más frecuentes de los exalumnos. Construyan un histograma junto con la función de densidad, para visualizar las contribuciones totales (variable **TGiving**) excluyendo los valores descritos. Interpreten los resultados a la luz del contexto. </div>
     :::
 
 ```{r echo=FALSE}
@@ -313,6 +306,7 @@ print(count_next_degree)
 ```
 
 **Interpretación:**
+Podemos observar quelas donaciones de más de 20 mil dólares 3 de los 5 registros tienen estudios de posgrado y todos pertenecen a la clase de 1957.  Entonces podemos inferir que aunque hay un porcentaje menor de asistentes para el cohorte de 1957, estos estan dispuestos a hacer doanciones significativamente más altas.
 
 -   ::: {style="text-align: justify"}
     Elaborar diagramas de caja que permita comparar la donación total (variable **TGiving**) durante los 5 años discriminando por cohorte, género, estado civil y asistencia a eventos de recaudación de fondos. Con la opción **outline** omitan las observaciones periféricas (datos atípicos, es decir, aquellos donantes que contribuyen generosamente). Comparen los cuatro gráficos, destaquen diferencias y similitudes entre grupos.
